@@ -9,5 +9,13 @@ async function locateScalpel (nest) {
 }
 locateScalpel(bigOak)
 
+function locateScalpel2 (nest) {
+  function next (current) {
+    return anyStorage(nest, current, 'scalpel').then(value =>
+      (value === current) ? value : next(value)
+    )
+  }
+  return next(nest.name)
+}
 locateScalpel(bigOak).then(console.log)
-// → Butcher Shop
+locateScalpel2(bigOak).then(console.log)
