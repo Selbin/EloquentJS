@@ -152,7 +152,7 @@ SkillShareServer.prototype.waitForChanges = function (time) {
     this.waiting.push(resolve)
     setTimeout(() => {
       if (!this.waiting.includes(resolve)) return
-      this.waiting = this.waiting.filter(r => r != resolve)
+      this.waiting = this.waiting.filter(r => r !== resolve)
       resolve({ status: 304 })
     }, time * 1000)
   })
@@ -170,7 +170,7 @@ function loadData () {
 
 SkillShareServer.prototype.updated = function () {
   this.version++
-  let response = this.talkResponse()
+  const response = this.talkResponse()
   this.waiting.forEach(resolve => resolve(response))
   this.waiting = []
 
@@ -179,4 +179,4 @@ SkillShareServer.prototype.updated = function () {
   })
 }
 
-new SkillShareServer(loadData()).start(3000)
+new SkillShareServer(loadData()).start(5000)

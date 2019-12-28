@@ -1,6 +1,3 @@
-// This code won't work on its own, but is also included in the
-// code/file_server.js file, which defines the whole system.
-
 const { mkdir } = require('fs').promises
 
 methods.MKCOL = async function (request) {
@@ -9,7 +6,7 @@ methods.MKCOL = async function (request) {
   try {
     stats = await stat(path)
   } catch (error) {
-    if (error.code != 'ENOENT') throw error
+    if (error.code !== 'ENOENT') throw error
     await mkdir(path)
     return { status: 204 }
   }
